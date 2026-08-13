@@ -6,7 +6,7 @@ python monitor_test_internal.py
 
 
 
-python monitor_test_triggle.py
+python monitor_test_trigger.py
 
 同时输出 ICM-42688（IMU）的六轴数据与摄像头外部触发测得的帧率，并可保存抓取的帧。
 
