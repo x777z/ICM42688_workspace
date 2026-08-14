@@ -23,3 +23,5 @@ sudo python3 ./ monitor_test_trigger.py
 
 - 此时接入1.8V外部触发信号，读取帧数会转为60.0
 - 测量并打印IMU数据+相机实际帧率与读取错误数
+
+  输入“ctrl+c“可退出运行
