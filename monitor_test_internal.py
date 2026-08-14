@@ -228,8 +228,8 @@ def main() -> None:
             display_frame = None
             if frame is not None and not args.no_preview:
                 display_frame = decode_mjpeg(frame) if raw_mjpeg else frame
-                if display_frame is not None:
-                    cv2.imshow("Camera - Internal 60 Hz", display_frame)
+              #   if display_frame is not None:
+              #      cv2.imshow("Camera - Internal 60 Hz", display_frame)
 
             now = time.monotonic()
             if now - last_time >= 1.0:
