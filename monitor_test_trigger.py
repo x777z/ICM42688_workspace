@@ -231,8 +231,8 @@ def main() -> None:
         while True:
             frame = reader.get_latest_frame()
 
-            if frame is not None and not args.no_preview:
-                cv2.imshow("Camera", frame)
+           # if frame is not None and not args.no_preview:
+           #     cv2.imshow("Camera", frame)
 
             now = time.monotonic()
             if now - last_time >= 1.0:
