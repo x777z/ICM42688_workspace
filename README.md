@@ -21,7 +21,7 @@ sudo python3 ./ monitor_test_trigger.py
 - 在启动拉流后程序自动调用 `v4l2-ctl` 设置 `backlight_compensation=1`
 （必须先拉流，再设置BLS=1，否则外部触发无法启动）
 
-- 此时接入1.8V外部触发信号，读取帧数会转为60.0
+- 此时接入1.8V 60Hz外部触发信号，读取帧数会转为60.0
 - 测量并打印IMU数据+相机实际帧率与读取错误数
 
   输入“ctrl+c“可退出运行
