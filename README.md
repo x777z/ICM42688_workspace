@@ -81,13 +81,12 @@ sudo python3 ./monitor_test_internal.py \
   --height 1080 \
   --fps 60 \
   --output camera2_internal_60hz \
-  --no-preview
 ```
 
 常用选项：
 
 - `--output`：指定抓帧保存目录。
-- `--no-preview`：关闭预览，适用于无桌面或远程终端环境。
+- `--no-preview`：可关闭预览，适用于无桌面或远程终端环境。
 
 ## 4. 相机外部触发模式
 
@@ -129,7 +128,6 @@ sudo python3 ./monitor_test_trigger.py \
   --height 480 \
   --fps 210 \
   --delay 0.5 \
-  --no-preview
 ```
 
 常用选项：
