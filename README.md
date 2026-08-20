@@ -47,8 +47,6 @@ WHO_AM_I=0x47
 
 `0x47` 是 ICM-42688 的器件标识。如果返回其他值或出现 SPI 读写错误，请检查 IMU 供电、SPI 接线、片选信号、设备节点及访问权限。
 
-> **注意：** 当前项目目录中未包含 `icm42688_test.py`。如需单独执行上述测试，请先添加该脚本。下面两个监控脚本在启动时也会读取并校验 `WHO_AM_I`，因此也可通过其启动输出确认 SPI 通信是否正常。
-
 ## 3. 相机内部运行模式
 
 执行：
@@ -90,7 +88,6 @@ sudo python3 ./monitor_test_internal.py \
 
 - `--output`：指定抓帧保存目录。
 - `--no-preview`：关闭预览，适用于无桌面或远程终端环境。
-- `--decoded-capture`：让 OpenCV 解码每个 MJPEG 帧。在 `3840 × 1080` 下会显著增加 CPU 负载，一般不建议开启。
 
 ## 4. 相机外部触发模式
 
@@ -100,8 +97,6 @@ sudo python3 ./monitor_test_internal.py \
 sudo python3 ./monitor_test_trigger.py
 ```
 
-注意：脚本路径应为 `./monitor_test_trigger.py`，`./` 与文件名之间不能有空格。
-
 程序执行流程如下：
 
 1. 通过 `/dev/spidev0.0` 初始化 ICM-42688，并校验 `WHO_AM_I=0x47`。
@@ -110,7 +105,7 @@ sudo python3 ./monitor_test_trigger.py
 4. 接入 **1.8 V、60 Hz** 外部触发信号。
 5. 每秒打印 IMU 数据、摄像头累计帧数、实测帧率和读取失败次数。外部触发稳定后，实测帧率应趋近 `60.0 FPS`。
 
-> **重要：** 必须先启动摄像头拉流，再设置 `backlight_compensation=1`（BLS=1），否则外部触发可能无法启动。
+> **重要：** 先启动摄像头拉流，再设置 `backlight_compensation=1`（BLS=1），否则外部触发无法启动。
 
 外部触发脚本默认请求 MJPEG、`1280 × 480 @ 210 FPS` 的摄像头传输模式。这里的 `210 FPS` 是请求配置；接入 60 Hz 外部触发信号后，程序打印的**实测帧率**应趋近 `60.0 FPS`。
 
@@ -156,7 +151,7 @@ mkdir -p camera2
 
 ### `WHO_AM_I` 不是 `0x47`
 
-检查 IMU 供电、SPI 模式、MISO/MOSI/SCLK/CS 接线、片选设备，以及 `/dev/spidev*` 与实际硬件的对应关系。
+信号或许不稳定，请再尝试几次
 
 ### 无法打开摄像头
 
@@ -169,12 +164,6 @@ v4l2-ctl -d /dev/video0 --list-formats-ext
 
 如果摄像头不是 `/dev/video0`，请使用 `--device` 指定正确节点。
 
-### 外部触发后帧率不是 60 FPS
-
-- 确认外部触发信号为 1.8 V、60 Hz，信号稳定且可靠共地。
-- 确认日志中显示 `backlight_compensation: 1`。
-- 确认 BLS=1 是在摄像头开始拉流后设置的。
-- 检查 USB 带宽，并确认读取失败次数没有持续增加。
 
 ### 无图形桌面或 OpenCV 窗口报错
 
